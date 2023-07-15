@@ -296,12 +296,15 @@ public class Server {
         String remoteIp = client.getRemoteAddress();
 
         String[] hostAddress = getIP(world, channel).split(":");
-        if (IpAddresses.isLocalAddress(remoteIp)) {
+        // For some configurations, we must use HWID to determine localhost because all
+        // of the packets looks like they are coming from localhost. (Both are
+        // acceptable here)
+        if (IpAddresses.isLocalAddress(remoteIp)
+                || client.getHwid().hwid().equals(YamlConfig.config.server.LOCALHOST_HWID)) {
             hostAddress[0] = YamlConfig.config.server.LOCALHOST;
         } else if (IpAddresses.isLanAddress(remoteIp)) {
             hostAddress[0] = YamlConfig.config.server.LANHOST;
         }
-
         try {
             return hostAddress;
         } catch (Exception e) {

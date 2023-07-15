@@ -47,6 +47,7 @@ public class ServerConfig {
     public String HOST;
     public String LANHOST;
     public String LOCALHOST;
+    public String LOCALHOST_HWID;
     public boolean GMSERVER;
 
     //Other configuration
